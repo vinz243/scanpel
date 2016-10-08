@@ -1,0 +1,19 @@
+{
+  "name": "scanpel",
+  "version": "0.1.0",
+  "description": "Multi-purpose music library scanner",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "keywords": [
+    "music",
+    "media",
+    "library",
+    "tags",
+    "scanner",
+    "id3v2"
+  ],
+  "author": "vinz243",
+  "license": "MIT"
+}
