@@ -4,7 +4,8 @@
   "description": "Multi-purpose music library scanner",
   "main": "index.js",
   "scripts": {
-    "test": "ava test.js"
+    "test": "ava test.js",
+    "dist": "babel -o index.js scanpel.js --presets es2015,es2016,stage-2"
   },
   "keywords": [
     "music",

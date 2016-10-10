@@ -1,5 +1,5 @@
 import test from 'ava';
-import scanpel from './index';
+import scanpel from './scanpel';
 
 const data = [{
   artistName: 'Eminem',
@@ -47,3 +47,12 @@ test('should parse correctly mock data', t => {
       });
 
 });
+
+
+
+test('should correct parse folder', async t => {
+  let res = await scanpel(__dirname + '/test');
+  // console.log(JSON.stringify(res));
+  t.is(res.Eminem['The Eminem Show (Explicit Version)'][0].duration, 297.933);
+  t.is(res['Imagine Dragons']['Night Visions'][0].duration, 186.813)
+})
