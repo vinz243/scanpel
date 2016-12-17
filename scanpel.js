@@ -1,7 +1,7 @@
-import atat from 'walk';
-import mediastic from 'mediastic';
+const atat = require('walk')
+const mediastic = require('mediastic');
 
-let buildTree = (medecine) => {
+let buildTree = function (medecine) {
   let artists = {};
   for(let medpack of medecine) {
     // console.log('med', medpack);
@@ -9,7 +9,6 @@ let buildTree = (medecine) => {
     artists[medpack.artistName][medpack.albumName] =
       artists[medpack.artistName][medpack.albumName] || [];
     artists[medpack.artistName][medpack.albumName].push({
-      trackTitle: medpack.trackName,
       duration: medpack.duration,
       path: medpack.path,
       trackTitle: medpack.trackTitle
@@ -18,22 +17,22 @@ let buildTree = (medecine) => {
 
   return artists;
 }
-let scan = (path) => {
-  return new Promise((resolve, reject) => {
+let scan = function (path) {
+  return new Promise(function (resolve, reject) {
 
     let tbtt = atat.walk(path);
     let medecine = []
-    tbtt.on('file', (root, stats, next) => {
+    tbtt.on('file', function (root, stats, next) {
       let filename = root + '/' + stats.name;
       // console.log(filename);
-      mediastic(filename).then((medic) => {
+      mediastic(filename).then(function (medic) {
         medecine.push(medic);
         next();
       });
       // medic.push(filename);
     });
     tbtt.on('error', reject);
-    tbtt.on('end', () => {
+    tbtt.on('end', function () {
         resolve(buildTree(medecine));
     });
   });
@@ -41,4 +40,4 @@ let scan = (path) => {
 };
 
 scan.buildTree = buildTree;
-export default scan;
+module.exports = scan;
