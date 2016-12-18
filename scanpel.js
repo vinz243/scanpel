@@ -4,7 +4,6 @@ const mediastic = require('mediastic');
 let buildTree = function (medecine) {
   let artists = {};
   for(let medpack of medecine) {
-    // console.log('med', medpack);
     artists[medpack.artistName] = artists[medpack.artistName] || {};
     artists[medpack.artistName][medpack.albumName] =
       artists[medpack.artistName][medpack.albumName] || [];
@@ -18,17 +17,25 @@ let buildTree = function (medecine) {
 
   return artists;
 } 
+
 let scan = function (path) {
   return new Promise(function (resolve, reject) {
 
     let tbtt = atat.walk(path);
     let medecine = []
     tbtt.on('file', function (root, stats, next) {
+      const regex = /^(.+)\.(mp3|flac|ogg|wmv)$/gi;
+
       let filename = root + '/' + stats.name;
-      // console.log(filename);
+      if (!regex.test(filename)) {
+        return next();
+      }
       mediastic(filename).then(function (medic) {
+        console.log(filename, medic);
         medecine.push(medic);
         next();
+      }).catch(function (err) {
+        console.log(err);
       });
       // medic.push(filename);
     });
