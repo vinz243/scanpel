@@ -31,7 +31,6 @@ let scan = function (path) {
         return next();
       }
       mediastic(filename).then(function (medic) {
-        console.log(filename, medic);
         medecine.push(medic);
         next();
       }).catch(function (err) {
