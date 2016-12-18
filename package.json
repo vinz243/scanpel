@@ -18,12 +18,12 @@
   "author": "vinz243",
   "license": "ISC",
   "devDependencies": {
-    "ava": "^0.16.0"
+    "ava": "^0.17.0"
   },
   "babel": {},
   "ava": {},
   "dependencies": {
-    "mediastic": "^0.2.0",
+    "mediastic": "^0.3.0",
     "walk": "^2.3.9"
   }
 }
