@@ -11,12 +11,13 @@ let buildTree = function (medecine) {
     artists[medpack.artistName][medpack.albumName].push({
       duration: medpack.duration,
       path: medpack.path,
-      trackTitle: medpack.trackTitle
+      trackTitle: medpack.trackTitle,
+      bitrate: medpack.bitrate
     });
   }
 
   return artists;
-}
+} 
 let scan = function (path) {
   return new Promise(function (resolve, reject) {
 
