@@ -7,5 +7,7 @@ The goal of this project is to scan a music library folder and guess track metad
 To use:
 
 ```js
-let tree = await scanpel('path/to/dir');
+let tree = await scanpel('path/to/dir', mediastic); 
 ```
+
+where mediastic is a Mediastic instance with all needed middlewares.
