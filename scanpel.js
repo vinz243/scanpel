@@ -1,36 +1,36 @@
 const atat = require('walk')
-const mediastic = require('mediastic');
 
 let buildTree = function (medecine) {
   let artists = {};
   for(let medpack of medecine) {
-    artists[medpack.artistName] = artists[medpack.artistName] || {};
-    artists[medpack.artistName][medpack.albumName] =
-      artists[medpack.artistName][medpack.albumName] || [];
-    artists[medpack.artistName][medpack.albumName].push({
+    artists[medpack.artist || 'Unknown'] = artists[medpack.artist || 'Unknown'] || {};
+    artists[medpack.artist || 'Unknown'][medpack.album || 'Unknown'] =
+      artists[medpack.artist || 'Unknown'][medpack.album || 'Unknown'] || [];
+    artists[medpack.artist || 'Unknown'][medpack.album || 'Unknown'].push({
       duration: medpack.duration,
       path: medpack.path,
-      trackTitle: medpack.trackTitle,
-      bitrate: medpack.bitrate
+      trackTitle: medpack.title,
+      trackNumber: medpack.track,
+      bitrate: medpack.bitrate,
     });
   }
 
   return artists;
-} 
+}
 
-let scan = function (path) {
+let scan = function (path, mediastic) {
   return new Promise(function (resolve, reject) {
 
     let tbtt = atat.walk(path);
     let medecine = []
     tbtt.on('file', function (root, stats, next) {
-      const regex = /^(.+)\.(mp3|flac|ogg|wmv)$/gi;
+      const regex = /^(.+)\.(mp3|flac|ogg|wmv)$/i; // No global flag!!!!!
 
       let filename = root + '/' + stats.name;
       if (!regex.test(filename)) {
         return next();
       }
-      mediastic(filename).then(function (medic) {
+      mediastic.call(filename).then(function (medic) {
         medecine.push(medic);
         next();
       }).catch(function (err) {
